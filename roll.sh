@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Rick Astley in your Terminal.
 # By Serene Han and Justine Tunney <3
 version='1.1'
@@ -9,12 +9,13 @@ video="$rick/astley80.full.bz2"
 audio_gsm="$rick/roll.gsm"
 audio_raw="$rick/roll.s16"
 audpid=0
-NEVER_GONNA='curl -s -L http://bit.ly/10hA8iC | bash'
+NEVER_GONNA='curl -s -L https://bit.ly/3w3I9OK | bash'
 MAKE_YOU_CRY="$HOME/.bashrc"
 red='\x1b[38;5;9m'
 yell='\x1b[38;5;216m'
 green='\x1b[38;5;10m'
 purp='\x1b[38;5;171m'
+printf '\033[8;31;80t'
 echo -en '\x1b[s'  # Save cursor.
 
 has?() { hash $1 2>/dev/null; }
@@ -29,6 +30,7 @@ usage () {
   echo -e " help   - Show this message."
   echo -e " inject - Append to ${purp}${USER}${yell}'s bashrc. (Recommended :D)"
 }
+
 for arg in "$@"; do
   if [[ "$arg" == "help"* || "$arg" == "-h"* || "$arg" == "--h"* ]]; then
     usage && exit
@@ -44,6 +46,7 @@ for arg in "$@"; do
     usage && exit
   fi
 done
+
 trap "cleanup" INT
 trap "quit" EXIT
 
@@ -54,6 +57,7 @@ obtainium() {
   else echo "Cannot has internets. :(" && exit
   fi
 }
+
 echo -en "\x1b[?25l \x1b[2J \x1b[H"  # Hide cursor, clear screen.
 
 #echo -e "${yell}Fetching audio..."
@@ -69,15 +73,24 @@ elif has? play; then
   obtainium $audio_gsm >/tmp/roll.gsm.wav
   play -q /tmp/roll.gsm.wav &
 fi
+
 audpid=$!
+
+# Verify files - agnostic to python or python3 availability.
+snek(){
+  if has? python; then python $1
+  elif has? python3; then python3 $1
+  else echo "There are no moves :(" && exit
+  fi
+}
 
 #echo -e "${yell}Fetching video..."
 # Sync FPS to reality as best as possible. Mac's freebsd version of date cannot
 # has nanoseconds so inject python. :/
-python <(cat <<EOF
+snek <(cat <<EOF
 import sys
 import time
-fps = 25; time_per_frame = 1.0 / fps
+fps = 28.5; time_per_frame = 1.0 / fps
 buf = ''; frame = 0; next_frame = 0
 begin = time.time()
 try:
