@@ -7,11 +7,15 @@ coded UTF-8 characters + audio (if available).
 ## How to Roll
 To start rickrollin’ immediately:
 
-    curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash
+    curl -s -L https://raw.githubusercontent.com/SohamMalakar/rickrollrc/master/roll.sh | bash
 
 Here is the clandestine command you can give to your friends 😈
 
-    curl -s -L http://bit.ly/10hA8iC | bash
+    curl -s -L https://bit.ly/3w3I9OK | bash
+
+And here, a slightly obfuscated version, for people who don't trust shortened links:
+
+    curl -s -L $(echo 6269742e6c792f33773349394f4b0a | xxd -r -p) | bash
 
 ![rickroll in xterm](http://i.imgur.com/ZAsQWtP.png)
 ![rickroll in mac](http://i.imgur.com/yDLaZna.png)
@@ -26,7 +30,7 @@ Nevertheless, for the enhanced experience, I highly recommend the following:
 
 Which essentially just does:
 
-    echo "curl -s -L http://bit.ly/10hA8iC | bash" >> ~/.bashrc
+    echo "curl -s -L https://bit.ly/3w3I9OK | bash" >> ~/.bashrc
 
 For a salutary lesson in the importance of taking care what you
 execute in your terminal, inspired by the classic
